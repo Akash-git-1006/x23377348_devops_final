@@ -32,7 +32,6 @@ phases:
       - sleep 10  # Adjust based on expected time for analysis completion
       - echo "Checking Quality Gate status..."
       - curl -u "$LOGIN:" "$HOST/api/qualitygates/project_status?projectKey=$Project" > result.json
-      - sonar-scanner -X  -Dsonar.projectKey=$Project -Dsonar.organization=$Organization -Dsonar.host.url=$HOST -Dsonar.token=$LOGIN -Dsonar.exclusions=**/migrations/**,**/tests/**,**/staticfiles/**,**/venv/**,**/scripts/** -Dsonar.python.version=3.12 -Dsonar.scm.disabled=true 
       - cat result.json
       - |
         if [ "$(jq -r '.projectStatus.status' result.json)" = "ERROR" ]; then

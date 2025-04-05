@@ -1,10 +1,10 @@
 version: 0.2
 env:
   secrets-manager:
-    LOGIN: akash23377348:LOGIN
-    HOST: akash23377348:HOST
-    Organization: akash23377348:Organization
-    Project: akash23377348:Project
+    LOGIN: akashx23377348:LOGIN
+    HOST: akashx23377348:HOST
+    Organization: akashx23377348:Organization
+    Project: akashx23377348:Project
 phases:
   install:
     runtime-versions:

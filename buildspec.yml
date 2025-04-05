@@ -15,6 +15,7 @@ phases:
       #- pylint --exit-zero $CODEBUILD_SRC_DIR/*.py
       - pylint --exit-zero $CODEBUILD_SRC_DIR/Devops_project/*.py
       - pylint --exit-zero $CODEBUILD_SRC_DIR/accounts/*.py
+      - pytest --junitxml=report.xml
 artifacts:
   files:
     - '**/*'

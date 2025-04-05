@@ -1,0 +1,164 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+        font-size: 1.75rem;
+        margin-bottom: 20px;
+        color: #343a40;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .form-group textarea {
+        resize: vertical;
+    }
+    .photo-upload {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .photo-upload input[type="file"] {
+        display: none;
+    }
+    .photo-upload label {
+        padding: 10px;
+        background-color: #28a745;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .photo-upload label:hover {
+        background-color: #218838;
+    }
+    .post-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .post-button button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .post-button button:hover {
+        background-color: #218838;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Post Your Ad</h2>
+    <!-- Add the action attribute to the form -->
+    <form method="post" enctype="multipart/form-data" action="{% url 'post_ad' %}">
+        {% csrf_token %}
+        
+        <!-- property_type -->
+        <div class="form-group">
+            <label for="id_property_type">property_type *</label>
+            {{ form.property_type }}
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="id_description">Description *</label>
+            {{ form.description }}
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+            <label for="id_location">Location *</label>
+            {{ form.location }}
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="id_rent">Rent *</label>
+            {{ form.rent }}
+        </div>
+
+        <!-- Square Feet -->
+        <div class="form-group">
+            <label for="id_square_feet">Square Feet *</label>
+            {{ form.square_feet }}
+        </div>
+
+        <!-- Number of Bedrooms -->
+        <div class="form-group">
+            <label for="id_number_of_bedrooms">Number of Bedrooms *</label>
+            {{ form.number_of_bedrooms }}
+        </div>
+
+        <!-- Number of Bathrooms -->
+        <div class="form-group">
+            <label for="id_number_of_bathrooms">Number of Bathrooms *</label>
+            {{ form.number_of_bathrooms }}
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+            <label for="id_phone_number">Your Phone Number *</label>
+            {{ form.phone_number }}
+        </div>
+
+        <!-- Available From -->
+        <div class="form-group">
+            <label for="id_Available_from">Available From *</label>
+            {{ form.Available_from }}
+        </div>
+
+       <!-- Upload Photos -->
+        <div class="form-group">
+        <label>Upload Up to 3 Photos</label>
+        <div class="photo-upload">
+            <!-- Photo 1 -->
+            <label for="id_image1" class="file-upload-label">Add Photo 1</label>
+            <input type="file" name="image1" id="id_image1" style="display: none;">
+            <span id="file-name-1"></span>
+    
+            <!-- Photo 2 -->
+            <label for="id_image2" class="file-upload-label">Add Photo 2</label>
+            <input type="file" name="image2" id="id_image2" style="display: none;">
+            <span id="file-name-2"></span>
+    
+            <!-- Photo 3 -->
+            <label for="id_image3" class="file-upload-label">Add Photo 3</label>
+            <input type="file" name="image3" id="id_image3" style="display: none;">
+            <span id="file-name-3"></span>
+         </div>
+         </div>
+
+        <!-- Post Button -->
+        <div class="post-button">
+            <button type="submit">Post Ad</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

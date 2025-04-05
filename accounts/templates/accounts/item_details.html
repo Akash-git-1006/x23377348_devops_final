@@ -1,0 +1,109 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}{{ house.description|truncatewords:5 }} - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <!-- Property Images and Seller Details -->
+            <div class="col-md-6">
+                <div class="product-image">
+                    <div class="row">
+                        {% if house.image1 %}
+                        <div class="col-md-6">
+                            <img src="{{ house.image1.url }}" alt="{{ house.description|truncatewords:5 }}" class="img-fluid">
+                        </div>
+                        {% endif %}
+                        {% if house.image2 %}
+                        <div class="col-md-6">
+                            <img src="{{ house.image2.url }}" alt="{{ house.description|truncatewords:5 }}" class="img-fluid">
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if house.image3 %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <img src="{{ house.image3.url }}" alt="{{ house.description|truncatewords:5 }}" class="img-fluid">
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Seller Details and Property Information -->
+            <div class="col-md-6">
+                <!-- Seller Details at the top -->
+                <div class="seller-details">
+                    <h3>Owner Details</h3>
+                    <p><strong>Name:</strong> {{ house.seller.username }}</p>
+                    <p><strong>Phone Number:</strong> {{ house.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ house.seller.email }}</p>
+                </div>
+
+                <!-- Property Information below Seller Details -->
+                <div class="product-info mt-4">
+                    <h2>{{ house.description|truncatewords:5 }}</h2>
+                    <p><strong>Property Type:</strong> {{ house.property_type }}</p>
+                    <p><strong>Location:</strong> {{ house.location }}</p>
+                    <p><strong>Rent:</strong> {{ house.rent }}</p>
+                    <p><strong>Square Feet:</strong> {{ house.square_feet }} sq.ft</p>
+                    <p><strong>Bedrooms:</strong> {{ house.number_of_bedrooms }}</p>
+                    <p><strong>Bathrooms:</strong> {{ house.number_of_bathrooms }}</p>
+                    <p><strong>Available From:</strong> {{ house.Available_from|date:"M d, Y" }}</p>
+                    <p><strong>Posted on:</strong> {{ house.date_posted|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles for Item Details */
+    .main-content {
+        padding: 40px 20px;
+        margin-top: 80px;
+    }
+
+    .product-image img {
+        width: 100%;
+        border-radius: 10px;
+        object-fit: contain; /* Ensure the full image is visible */
+        margin-bottom: 10px; /* Add spacing between images */
+    }
+
+    .product-info h2 {
+        font-size: 2rem;
+        color: #343a40;
+    }
+
+    .product-info .price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #28a745;
+    }
+
+    .product-info p {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+    .seller-details {
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .seller-details h3 {
+        font-size: 1.5rem;
+        color: #343a40;
+    }
+
+    .seller-details p {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}

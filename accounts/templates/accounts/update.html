@@ -1,0 +1,38 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Dashboard - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <h1 class="welcome-message">My Ads</h1>
+
+        <!-- Dashboard Content -->
+        <table class="table table-bordered" id="category_table" style="margin-top: 100px;">
+            <thead>
+                <th>Property Images</th>
+                <th>Property description</th>
+                <th>Rent</th>
+                <th>location</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% if items %}
+                    {% for ad in items %}
+                        <tr>
+                            <td><img src="{{ ad.image1.url }}" alt="" style="width: 15%;"></td>
+                            <td>{{ ad.description }}</td>
+                            <td>{{ ad.rent }}</td>
+                            <td>{{ ad.location }}</td>
+                            <td>
+                                <a href="{% url 'update' ad.property_id %}" class="btn btn-warning">Update</a>
+                                <a href="{% url 'delete' ad.property_id %}" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% load static %}  
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rental Dublin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+
+    <style>
+      /* Full-screen background image */
+      body {
+        background: url("{% static 'images/devops lo1.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* Push form to the right */
+        padding-right: 10%;
+      }
+
+      /* Login form styling */
+      .login-form {
+        color: white;
+        font-size: 1.8rem; /* Increased font size */
+        font-weight: bold;
+      }
+
+      /* Input fields */
+      .form-control {
+        padding: 18px; /* Bigger padding */
+        font-size: 1.4rem; /* Bigger text */
+        border-radius: 12px;
+        border: 2px solid white;
+        background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+        color: white;
+      }
+      .form-control::placeholder {
+        color: white;
+        font-size: 1.3rem;
+      }
+
+      /* Button styling */
+      .btn-primary {
+        padding: 18px;
+        font-size: 1.4rem; /* Bigger button text */
+        border-radius: 12px;
+        width: 100%;
+        background: blue;
+        border: none;
+      }
+
+      /* Signup link */
+      .signup-link {
+        font-size: 1.3rem;
+        text-align: center;
+        color: black;
+      }
+
+      /* Remove focus border */
+      .form-control:focus {
+        outline: none;
+        box-shadow: none;
+        border: 2px solid white;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Login Form (Right Side) -->
+    <div class="login-form">
+      <h1><strong>Rental Dublin</strong></h1>
+
+      {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        Invalid username or password. Please try again.
+      </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-4">
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <input type="hidden" name="next" value="{% url 'buy' %}" />
+        <div class="mb-4">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+
+      <p class="signup-link">New user? Sign-up <a href="{% url 'signup' %}" style="color: black; text-decoration: underline;">here</a></p>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+  </body>
+</html>

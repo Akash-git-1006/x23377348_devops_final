@@ -1,0 +1,179 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Buy - Rental Dublin {% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="main-content">
+    <div class="container">
+        <h1 class="welcome-message">All properties for rent in Dublin</h1>
+
+        <!-- Search Bar -->
+        <form method="GET" action="{% url 'buy' %}" class="search-bar mb-4">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    name="search" 
+                    placeholder="Search products or tags..." 
+                    value="{{ search_query }}"
+                    class="form-control"
+                    aria-label="Search"
+                >
+            </div>
+
+            <div class="filters">
+                <select name="property_type">
+                    <option value="">Property Type</option>
+                    <option value="House" {% if selected_property_type == "House" %}selected{% endif %}>House</option>
+                    <option value="Apartment" {% if selected_property_type == "Apartment" %}selected{% endif %}>Apartment</option>
+                    <option value="Studio Apartment" {% if selected_property_type == "Studio Apartment" %}selected{% endif %}>Studio Apartment</option>
+                </select>
+
+                <select name="location">
+                    <option value="">Location</option>
+                    {% for location in locations %}
+                    <option value="{{ location }}" {% if location == selected_location %}selected{% endif %}>{{ location }}</option>
+                    {% endfor %}
+                </select>
+
+                <!-- Price -->
+                <select name="price">
+                    <option value="">Max Price</option>
+                    {% for i in price_range %}
+                        <option value="{{ i }}" {% if price and price|stringformat:"d" == i|stringformat:"d" %}selected{% endif %}>
+                            €{{ i }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Beds -->
+                <select name="beds">
+                    <option value="">Beds</option>
+                    {% for i in bed_range %}
+                        <option value="{{ i }}" {% if beds and beds|stringformat:"d" == i|stringformat:"d" %}selected{% endif %}>
+                            {{ i }} Bed{% if i > 1 %}s{% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Baths -->
+                <select name="baths">
+                    <option value="">Baths</option>
+                    {% for i in bath_range %}
+                        <option value="{{ i }}" {% if baths and baths|stringformat:"d" == i|stringformat:"d" %}selected{% endif %}>
+                            {{ i }} Bath{% if i > 1 %}s{% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="search-button">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <!-- Divider Line -->
+        <div class="divider"></div>
+
+        {% if search_query or selected_property_type or selected_location or price or beds or baths %}
+            {% if results %}
+                <div class="search-results">
+                    <h2>{{ results|length }} search results</h2>
+                    <div class="result-grid">
+                        {% for result in results %}
+                        <a href="{% url 'item_details' result.property_id %}" style="text-decoration: none; color: inherit;">
+                            <div class="result-item">
+                                <img src="{{ result.image1.url }}" alt="{{ result.product_title }}">
+                                <p>Property : {{ result.description}}</p>
+                                <p>Rent : € {{ result.rent}}</p>
+                                <p>Location : {{ result.location }}</p>
+                                <p>Posted on : {{ result.date_posted }}</p>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p>No items found matching your search criteria.</p>
+            {% endif %}
+        {% else %}
+            <!-- Prime Properties Section -->
+            <div class="fresh-recommendations">
+                <h2>Prime Properties in Dublin</h2>
+                <div class="featured-section">
+                    <h3>FEATURED</h3>
+                    <div class="featured-properties">
+                        {% for house in featured_properties %}
+                        <a href="{% url 'item_details' house.property_id %}" style="text-decoration: none; color: inherit;">
+                            <div class="featured-item">
+                                {% if house.image1 %}
+                                    <img src="{{ house.image1.url }}" alt="{{ house.description }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                                {% else %}
+                                    <div style="width: 100px; height: 100px; background-color: #e9ecef; border-radius: 10px;"></div>
+                                {% endif %}
+                                <div class="details">
+                                    <h4>{{ house.property_type }}</h4>
+                                    <p><strong>Beds:</strong> {{ house.number_of_bedrooms }}</p>
+                                    <p><strong>Baths:</strong> {{ house.number_of_bathrooms }}</p>
+                                    <p><strong>Rent:</strong> £ {{ house.rent }}</p>
+                                    <p><strong>Square Feet:</strong> {{ house.square_feet }} sq.ft.</p>
+                                    <p><strong>Location:</strong> {{ house.location }}</p>
+                                </div>
+                            </div>
+                        </a>
+                        {% empty %}
+                            <p>No featured items available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .result-grid, .featured-properties {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .result-item, .featured-item {
+        flex: 1 1 calc(25% - 20px);
+        box-sizing: border-box;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .result-item img, .featured-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .result-item h3, .featured-item h4 {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .result-item p, .featured-item p {
+        margin: 6px 0;
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .result-item, .featured-item {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 500px) {
+        .result-item, .featured-item {
+            flex: 1 1 100%;
+        }
+    }
+</style>
+{% endblock %}

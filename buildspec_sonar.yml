@@ -25,6 +25,7 @@ phases:
     commands:
       - python --version
       - java -version
+      - python manage.py collectstatic --noinput --clear
       - sonar-scanner --version
   build:
     commands:

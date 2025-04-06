@@ -144,14 +144,17 @@ LOGIN_REDIRECT_URL = 'buy'  # Ensure this matches the name of your dashboard URL
 LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
-MEDIA_ROOT = (
-BASE_DIR
-)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "accounts/static/images"),
+]
 
-MEDIA_URL = '/media/'  # URL prefix for media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Path to the media folder
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# MEDIA_ROOT = (
+# BASE_DIR
+# )
+
+# MEDIA_URL = '/media/'  # URL prefix for media files
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Path to the media folder
 
 CSRF_TRUSTED_ORIGINS=['https://x23377348-devops.eba-zjqw73rw.us-west-1.elasticbeanstalk.com']

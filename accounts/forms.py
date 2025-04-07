@@ -5,30 +5,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
 
-# class AdForm(forms.ModelForm):
-#     class Meta:
-#         model = 
-#         fields = [
-#             'title', 'category', 'description', 'price', 'condition', 
-#             'location', 'seller_name', 'seller_phone', 'seller_email'
-#         ]
-
-#     # Add fields for up to 4 photos
-#     photo1 = forms.ImageField(required=False)
-#     photo2 = forms.ImageField(required=False)
-#     photo3 = forms.ImageField(required=False)
-#     photo4 = forms.ImageField(required=False)
-
-#     def save(self, commit=True):
-#         ad = super().save(commit=False)
-#         if commit:
-#             ad.save()
-#             for i in range(1, 5):
-#                 photo = self.cleaned_data.get(f'photo{i}')
-#                 if photo:
-#                     AdPhoto.objects.create(ad=ad, photo=photo)
-#         return ad
-
 
 class AdForm(forms.ModelForm):
     # Explicitly define the number_of_bedrooms field with choices

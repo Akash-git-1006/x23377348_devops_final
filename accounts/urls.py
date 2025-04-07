@@ -10,7 +10,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('buy/', views.buy, name='buy'),
     path('item/<int:property_id>/', views.item_details, name='item_details'),  # Details page URL
-    # path('search/', views.search, name='search'),
     path('sell/', views.post_ad, name='sell'),
     path('post-ad/', views.post_ad, name='post_ad'),
     path('My_ads', views.My_ads, name='My_ads'),

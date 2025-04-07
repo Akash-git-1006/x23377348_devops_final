@@ -170,7 +170,7 @@ def delete_ad(request, property_id):
     return redirect('My_ads')    
 
 @login_required
-def my_ads(request):
+def My_ads(request):
     # Fetch item details from the database
     update_item = house.objects.filter(seller_id = request.user)
     # update_item = item.objects.all()

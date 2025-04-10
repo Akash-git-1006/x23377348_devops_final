@@ -152,4 +152,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 
-CSRF_TRUSTED_ORIGINS=['https://x23377348-devops.eba-zjqw73rw.us-west-1.elasticbeanstalk.com']
+CSRF_TRUSTED_ORIGINS=['https://489f5b9bbb0b494aa99ea71b6c2203e7.vfs.cloud9.eu-west-1.amazonaws.com']
